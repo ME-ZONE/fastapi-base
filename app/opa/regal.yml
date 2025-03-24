@@ -1,0 +1,31 @@
+rules:
+  style:
+    avoid-get-and-list-prefix:
+      ignore:
+        files:
+          - "*.rego"
+    messy-rule:
+      ignore:
+        files:
+          - "*.rego"
+    prefer-snake-case:
+      ignore:
+        files:
+          - "*.rego"
+    default-over-else:
+      ignore:
+        files:
+          - "*.rego"
+    rule-name-repeats-package:
+      ignore:
+        files:
+          - "*.rego"
+    external-reference:
+      ignore:
+        files:
+          - "*.rego"
+  idiomatic:
+    directory-package-mismatch:
+      ignore:
+        files:
+          - "*.rego"

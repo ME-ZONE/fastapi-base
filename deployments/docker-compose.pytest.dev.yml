@@ -1,0 +1,26 @@
+name:  fastapi-base
+
+services:
+  pcs_postgres_pytest:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    restart: always
+    container_name: pcs_postgres_pytest
+    env_file:
+      - ../.env.dev
+    ports:
+      - ${TEST_POSTGRES_PORT}:5432
+    volumes:
+      - ./data/postgres_pytest_data:/data/postgres
+
+  pcs_allure:
+    build:
+      context: .
+      dockerfile: Dockerfile.allure
+    container_name: pcs_allure
+    restart: always
+    ports:
+      - ${TEST_ALLURE_PORT}:5252
+    volumes:
+      - ./data/allure-results:/allure-results
