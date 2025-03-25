@@ -11,15 +11,16 @@ from tests.testcases.auth.cons_auth import LoginTestCase
 @allure.feature(LoginTestCase.FEATURE)
 @allure.story(LoginTestCase.STORY)
 @allure.severity(LoginTestCase.SEVERITY)
-@allure.title(LoginTestCase.TITLE)
 @allure.description(LoginTestCase.DESCRIPTION)
 @pytest.mark.parametrize(
     ", ".join(LoginTestCase.PARAMS),
     LoginTestCase.REQUESTS,
 )
 def test_login_dynamic(
-    client: TestClient, username: str, password: str, expected_status: int, expected_response: dict
+    client: TestClient, test_title: str, username: str, password: str, expected_status: int, expected_response: dict
 ) -> None:
+    allure.dynamic.title(test_title)
+
     with allure.step(LoginTestCase.STEPS[0]["step"].format(username=username)):
         response = client.post(LoginTestCase.API_PATH, json={"username": username, "password": password})
 

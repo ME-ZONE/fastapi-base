@@ -7,14 +7,14 @@ class LoginTestCase:
     FEATURE = "Login Feature"
     STORY = "Login Story"
     SEVERITY = allure.severity_level.CRITICAL
-    TITLE = "Verify login with different credentials"
     DESCRIPTION = ("This test case verifies the login functionality by attempting to authenticate"
                    " using various credential sets. The test checks the system's response to both valid"
                    " and invalid login attempts, ensuring proper handling of errors and"
                    " successful authentication for valid credentials.")
-    PARAMS = ["username", "password", "expected_status", "expected_response"]
+    PARAMS = ["test_title", "username", "password", "expected_status", "expected_response"]
     REQUESTS = [
         (
+            "Login successful",
             "superuser",
             "superuser",
             200,
@@ -28,15 +28,11 @@ class LoginTestCase:
             },
         ),
         (
+            "Login failed",
             "invalid_user",
             "wrong_pass",
             400,
-            {
-              "detail": {
-                "name": "BAD_REQUEST",
-                "message": "Tên đăng nhập hoặc mật khẩu không chính xác."
-              }
-            },
+            {"detail": {"name": "BAD_REQUEST", "message": "Tên đăng nhập hoặc mật khẩu không chính xác."}},
         ),
     ]
     STEPS = [

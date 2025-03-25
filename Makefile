@@ -17,6 +17,10 @@ OPA_REGAL_FILE := ./$(APP_NAME)/opa/regal.exe
 OPA_REGAL_CONFIG := ./$(APP_NAME)/opa/regal.yml
 
 ALLURE_RESULT_FOLDER := ./deployments/data/allure-results
+TEST_SEED_DATA_FOLDER := ./tests/seed_data
+TEST_GENERATE_DATA_FILE := $(TEST_SEED_DATA_FOLDER)/test_generate_all_data.py
+TEST_CREATE_DATA_FILE := $(TEST_SEED_DATA_FOLDER)/test_create_all_data.py
+TEST_CLEAR_DATA_FILE := $(TEST_SEED_DATA_FOLDER)/test_clear_all_data.py
 
 # command
 POETRY_RUN := poetry run
@@ -90,9 +94,24 @@ opa-format:
 
 # Pytest: Run tests using Pytest
 pytest:
-	$(POETRY_RUN) pytest -v --tb=short --no-header --no-summary --strict-markers -ra --alluredir=$(ALLURE_RESULT_FOLDER)
+	make pytest-clear-data
+	make pytest-create-data
+	$(POETRY_RUN) pytest -v --tb=short --no-header --no-summary --strict-markers -ra --clean-alluredir --alluredir=$(ALLURE_RESULT_FOLDER) --ignore=$(TEST_SEED_DATA_FOLDER)
+	make pytest-clear-data
 
-check-all: lint-check alembic-check pytest
+# Pytest: generate data json
+pytest-generate-data:
+	$(POETRY_RUN) pytest $(TEST_GENERATE_DATA_FILE) -v
+
+# Pytest: create data in db pytest
+pytest-create-data:
+	$(POETRY_RUN) pytest $(TEST_CREATE_DATA_FILE) -v
+
+# Pytest: clear data in db pytest
+pytest-clear-data:
+	$(POETRY_RUN) pytest $(TEST_CLEAR_DATA_FILE) -v
+
+check-all: lint-check alembic-check opa-check pytest
 	@echo All checks passed!
 
 # Clean up cache and temporary files

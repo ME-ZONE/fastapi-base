@@ -1,3 +1,5 @@
+# METADATA
+# entrypoint: true
 package users
 
 import data.utils
@@ -32,9 +34,7 @@ result := {
 filter := qobject if {
 	input.auth.user.is_superuser
 	qobject = []
-}
-
-filter := qobject if {
+} else := qobject if {
 	not input.auth.user.is_superuser
 	qobject = [{"id": input.auth.user.id}]
 }

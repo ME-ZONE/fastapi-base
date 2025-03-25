@@ -1,0 +1,102 @@
+[
+    {
+        "id": "d1dddfae-9d1e-4595-94a8-e561558a9cee",
+        "username": "april21",
+        "password": "!3O*brrhk4",
+        "hashed_password": "$2b$12$ZE.xYygBYWt3OJDowjRy3eDWBnK1BrgxYIIgNPsxUGkfiwITinIr2",
+        "is_superuser": true,
+        "is_active": false,
+        "role": "admin",
+        "token_version": 0
+    },
+    {
+        "id": "a3583fd0-3af7-4a3d-a5a7-7f7e41e69a66",
+        "username": "monicabell",
+        "password": "BMXg3pHk^3",
+        "hashed_password": "$2b$12$.SJD5k9GzPmuiXXWbzWkCenGDcVDojWTt93g6FmkrY2gT3iEBXUui",
+        "is_superuser": true,
+        "is_active": false,
+        "role": "admin",
+        "token_version": 0
+    },
+    {
+        "id": "3ff7885f-7f07-4445-800f-f4cffe705a4c",
+        "username": "christine46",
+        "password": "SiGJVtmU^7",
+        "hashed_password": "$2b$12$VH8OkySyYmP2TJv6qF.1kOxwkJWkwaPkP750YkWigMleJmLaPI/tO",
+        "is_superuser": false,
+        "is_active": false,
+        "role": "moderator",
+        "token_version": 0
+    },
+    {
+        "id": "71d2ad9d-0a33-4ce1-8319-95c859401ee1",
+        "username": "tinaschmitt",
+        "password": "+@L0rGAW*6",
+        "hashed_password": "$2b$12$QS1FTdEUIMXGLXGXLPguteIb553hw4OlVoq0.q7jD/MaDb29Ntsra",
+        "is_superuser": true,
+        "is_active": false,
+        "role": "user",
+        "token_version": 0
+    },
+    {
+        "id": "ce9fffd1-5077-4b7e-be68-dac2831a271b",
+        "username": "maureendavis",
+        "password": "*!77IcZfYJ",
+        "hashed_password": "$2b$12$GAlp7NSpZhRtKoxn5jb/5.6nUFLVpp1ULXBh2di8QXXsZTAootVYO",
+        "is_superuser": true,
+        "is_active": true,
+        "role": "user",
+        "token_version": 0
+    },
+    {
+        "id": "237b1377-930e-4aff-8bbd-cb4d5719e151",
+        "username": "amy37",
+        "password": "n#8PM8oU%Z",
+        "hashed_password": "$2b$12$t4USKA7aFSyZr0jjaooUaeYU8Ee.TEwrLo9bkupd5NtBQaaonhJQu",
+        "is_superuser": false,
+        "is_active": false,
+        "role": "admin",
+        "token_version": 0
+    },
+    {
+        "id": "b05da028-7523-4ac2-9a1b-0634400bb2f6",
+        "username": "dean59",
+        "password": "@Gs9MK)ieN",
+        "hashed_password": "$2b$12$Jl8B0CzCNIgToy1G/ZpWwORmnKDxmrJmLTZCN/keCMixNZlwGHvYO",
+        "is_superuser": true,
+        "is_active": false,
+        "role": "moderator",
+        "token_version": 0
+    },
+    {
+        "id": "89dcb648-b099-4594-a5e2-b629b05b1beb",
+        "username": "tbaird",
+        "password": "V8pIZj4k@q",
+        "hashed_password": "$2b$12$WZtBW/47cu4UXrhaJlfVrORMUhYE5356Ee6fOQXzgLdgGxk.AODZe",
+        "is_superuser": true,
+        "is_active": true,
+        "role": "user",
+        "token_version": 0
+    },
+    {
+        "id": "cd4112a4-7592-48ef-ae2d-aeeb13f59f79",
+        "username": "codybridges",
+        "password": "hV(O1gQj&^",
+        "hashed_password": "$2b$12$GNNqmtiuifHtfXGuIf1fHOWF9Fnok5UsqR3OTmOJ8RjAESKELlrVa",
+        "is_superuser": false,
+        "is_active": false,
+        "role": "moderator",
+        "token_version": 0
+    },
+    {
+        "id": "0183bbbb-959c-4a89-b676-8bf25588612b",
+        "username": "msingh",
+        "password": "&y7PVLvg3S",
+        "hashed_password": "$2b$12$JIuf.fJ7NVsN0cu3A2WZbuOFDjpuERaBE.2mLMcP8Lqm7qod2GBEu",
+        "is_superuser": false,
+        "is_active": false,
+        "role": "moderator",
+        "token_version": 0
+    }
+]
