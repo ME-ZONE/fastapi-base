@@ -3,7 +3,6 @@ from pathlib import Path
 BasePath: str = "/api"
 APP_DIR_PATH = str(Path(__file__).resolve().parents[3])
 LOG_DIR_PATH: str = f"{APP_DIR_PATH}/deployments/data/logs"
-POSTGRES_DB: str  = "postgres"
 
 COMMON_RESPONSES: dict = {
     400: {

@@ -1,3 +1,5 @@
+import json
+
 from fastapi import HTTPException
 from starlette.responses import JSONResponse
 
@@ -23,6 +25,15 @@ class AppResponse(JSONResponse):
     def __init__(
         self, app_status: AppStatus, data: dict | list[dict] = None, meta: dict | list[dict] = None, **kwargs
     ) -> None:
+        self.content = {
+            "status_code": app_status.status_code,
+            "detail": {
+                "name": app_status.name,
+                "message": self._format_message(app_status.message, **kwargs),
+                "data": data,
+                "meta": meta,
+            },
+        }
         super().__init__(
             status_code=app_status.status_code,
             content={
@@ -34,6 +45,9 @@ class AppResponse(JSONResponse):
                 }
             },
         )
+
+    def __str__(self) -> str:
+        return json.dumps(self.content, ensure_ascii=False, indent=2)
 
     ## Internal Function ##
     @staticmethod

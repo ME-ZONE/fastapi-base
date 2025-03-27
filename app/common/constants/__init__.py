@@ -12,6 +12,5 @@ from .common_constant import (
     LOG_DIR_PATH,
     MODEL_KEY_MAP_TRANSLATE,
     PAGINATE_KEY_MAP_TRANSLATE,
-    POSTGRES_DB,
     BasePath,
 )

@@ -28,6 +28,20 @@ class LoginTestCase:
             },
         ),
         (
+            "Login successful",
+            "admin123",
+            "admin123",
+            200,
+            {
+                "detail": {
+                    "name": "OK",
+                    "message": "Đăng nhập thành công.",
+                    "data": None,
+                    "meta": None,
+                }
+            },
+        ),
+        (
             "Login failed",
             "invalid_user",
             "wrong_pass",

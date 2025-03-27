@@ -16,11 +16,12 @@ OPA_RULE_FOLDER := ./$(APP_NAME)/opa/rules
 OPA_REGAL_FILE := ./$(APP_NAME)/opa/regal.exe
 OPA_REGAL_CONFIG := ./$(APP_NAME)/opa/regal.yml
 
+TEST_TOOL_FOLDER := ./tests/tools
+TEST_TOOL_MANAGE_FILE := $(TEST_TOOL_FOLDER)/manage.py
+TEST_TOOL_MODEL_FOLDER := $(TEST_TOOL_FOLDER)/ui/models
+TEST_TOOL_LIST_DB_TABLES_FILE := $(TEST_TOOL_FOLDER)/list_db_tables.py
+TEST_TOOL_FIX_MODEL_FILE := $(TEST_TOOL_FOLDER)/fix_model.py
 ALLURE_RESULT_FOLDER := ./deployments/data/allure-results
-TEST_SEED_DATA_FOLDER := ./tests/seed_data
-TEST_GENERATE_DATA_FILE := $(TEST_SEED_DATA_FOLDER)/test_generate_all_data.py
-TEST_CREATE_DATA_FILE := $(TEST_SEED_DATA_FOLDER)/test_create_all_data.py
-TEST_CLEAR_DATA_FILE := $(TEST_SEED_DATA_FOLDER)/test_clear_all_data.py
 
 # command
 POETRY_RUN := poetry run
@@ -33,6 +34,14 @@ run:
 # Install project dependencies
 install:
 	poetry install
+
+# Install main dependencies
+install-main:
+	poetry install --no-dev
+
+# Install dev dependencies
+install-dev:
+	poetry install --with dev
 
 # Ruff: Check code issues with Ruff
 lint-check:
@@ -94,22 +103,31 @@ opa-format:
 
 # Pytest: Run tests using Pytest
 pytest:
-	make pytest-clear-data
-	make pytest-create-data
-	$(POETRY_RUN) pytest -v --tb=short --no-header --no-summary --strict-markers -ra --clean-alluredir --alluredir=$(ALLURE_RESULT_FOLDER) --ignore=$(TEST_SEED_DATA_FOLDER)
-	make pytest-clear-data
+	$(POETRY_RUN) pytest -v --tb=short --no-header --no-summary --strict-markers -ra --clean-alluredir --alluredir=$(ALLURE_RESULT_FOLDER)
 
-# Pytest: generate data json
-pytest-generate-data:
-	$(POETRY_RUN) pytest $(TEST_GENERATE_DATA_FILE) -v
+# Pytest: Run tool
+pytest-tool:
+	python $(TEST_TOOL_MANAGE_FILE) runserver
 
-# Pytest: create data in db pytest
-pytest-create-data:
-	$(POETRY_RUN) pytest $(TEST_CREATE_DATA_FILE) -v
+# Pytest: Setup tool
+pytest-tool-admin:
+	python $(TEST_TOOL_MANAGE_FILE) migrate
+	python $(TEST_TOOL_MANAGE_FILE) createsuperuser
 
-# Pytest: clear data in db pytest
-pytest-clear-data:
-	$(POETRY_RUN) pytest $(TEST_CLEAR_DATA_FILE) -v
+# Pytest: List table from database
+pytest-tool-list-tables:
+	python $(TEST_TOOL_LIST_DB_TABLES_FILE)
+
+# Pytest: Insect table from database
+pytest-tool-inspectdb:
+	@chcp 65001 >nul & \
+	@if "$(TABLE)"=="" ( \
+		echo Vui lòng cung cấp tên bảng. Ví dụ: make pytest-tool-inspectdb TABLE=pcs_users & exit /b 1 \
+	) else ( \
+		echo Inspecting table: $(TABLE) & \
+		python $(TEST_TOOL_MANAGE_FILE) inspectdb $(TABLE) > $(TEST_TOOL_MODEL_FOLDER)/$(TABLE).py & \
+		python $(TEST_TOOL_FIX_MODEL_FILE) \
+	)
 
 check-all: lint-check alembic-check opa-check pytest
 	@echo All checks passed!
@@ -118,7 +136,3 @@ check-all: lint-check alembic-check opa-check pytest
 clean:
 	find . -name "*.pyc" -delete
 	find . -name "__pycache__" -delete
-ifeq ($(OS), Windows)
-	del /s /q *.pyc
-	del /s /q __pycache__
-endif

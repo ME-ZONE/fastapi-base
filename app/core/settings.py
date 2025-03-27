@@ -27,8 +27,17 @@ class AppSettings(BaseAppSettings):
     POSTGRES_PORT: int = 5432
     POSTGRES_USER: str = "admin"
     POSTGRES_PASSWORD: str = "admin"  # noqa: S105
+    POSTGRES_DB: str = "postgres"
     PGDATA: str = "/data/postgres"
     TZ: str = "Asia/Ho_Chi_Minh"
+
+    @property
+    def POSTGRES_ASYNC_URL(self) -> str:  # noqa: N802
+        return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+
+    @property
+    def POSTGRES_URL(self) -> str:  # noqa: N802
+        return self.POSTGRES_ASYNC_URL.replace("postgresql+asyncpg://", "postgresql://")
 
     # PGAdmin
     PGADMIN_DEFAULT_EMAIL: str = "admin@admin.com"

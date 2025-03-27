@@ -31,7 +31,14 @@ def logger_function_call(class_name: ClassEnum) -> Callable[[Callable[..., Any]]
             )
             try:
                 result = await func(*args, **kwargs)
-                logger.info(f"{filename}:{lineno} - [{class_name.value}] Kết quả hàm {func.__name__}: {result}")
+                log_result = (
+                    result.to_dict(exclude=["hashed_password"])
+                    if class_name == ClassEnum.REPOSITORY and result
+                    else result
+                )
+                logger.info(
+                    f"{filename}:{lineno} - [{class_name.value}] Kết quả hàm {func.__name__}: {log_result}"
+                )
                 return result
             except AppException as e:
                 if not hasattr(e, "_logged"):

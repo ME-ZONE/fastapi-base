@@ -3,7 +3,6 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import create_engine
 
-from app.common.constants import POSTGRES_DB
 from app.core import settings
 from app.core.databases.postgresdb import Base
 from app.models import *
@@ -29,9 +28,8 @@ target_metadata = Base.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-def get_db_url():
-    uri = f"postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{POSTGRES_DB}"
-    return uri
+def get_db_url() -> str:
+    return settings.POSTGRES_URL
 
 
 def run_migrations_offline() -> None:

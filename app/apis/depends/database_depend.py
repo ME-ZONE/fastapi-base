@@ -3,15 +3,13 @@ from functools import lru_cache
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.common.constants import POSTGRES_DB
 from app.core import settings
 from app.core.databases import DatabaseSessionManager
 
 
 @lru_cache
 def get_database_session_maker() -> DatabaseSessionManager:
-    uri = f"postgresql+asyncpg://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{POSTGRES_DB}"
-    return DatabaseSessionManager(uri)
+    return DatabaseSessionManager(settings.POSTGRES_ASYNC_URL)
 
 
 async def get_async_db_session() -> AsyncGenerator[AsyncSession, None]:
