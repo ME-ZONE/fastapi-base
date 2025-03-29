@@ -2,7 +2,7 @@ import allure
 
 
 class LoginTestCase:
-    API_PATH = "/api/auth/login"
+    API_PATH = "/api/auth/login/"
     EPIC = "Authentication API"
     FEATURE = "Login Feature"
     STORY = "Login Story"

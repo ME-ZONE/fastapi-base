@@ -15,6 +15,7 @@ from app.common.enums import ProjectBuildTypes, SwaggerPaths
 from app.core import logger, settings
 from app.core.middlewares import (
     ExceptionMiddleware,
+    URLValidationMiddleware,
     rate_limit_exception_handler,
     validation_exception_handler,
 )
@@ -51,6 +52,7 @@ class App:
         self.application.add_exception_handler(RequestValidationError, validation_exception_handler)
         self.application.add_exception_handler(429, rate_limit_exception_handler)
         self.application.add_middleware(ExceptionMiddleware)
+        self.application.add_middleware(URLValidationMiddleware)
         self.application.openapi = self.custom_openapi
 
     def custom_openapi(self) -> dict[str, Any]:
@@ -79,7 +81,7 @@ class App:
     def on_terminate_app(self) -> Callable:
         @logger.catch
         async def stop_app() -> None:
-            await self._redis_client.close()
+            await self._redis_client.aclose()
 
         return stop_app
 

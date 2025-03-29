@@ -118,6 +118,11 @@ class AppStatus(Enum):
         "Bạn không có quyền thực hiện hành động này. Nếu bạn tin rằng đây là lỗi, "
         "hãy liên hệ với quản trị viên để được hỗ trợ.",
     )
+    INIT_403_INVALID_URL_FORBIDDEN = (
+        status.HTTP_403_FORBIDDEN,
+        "FORBIDDEN",
+        "Đường dẫn chứa các ký tự không được hỗ trợ.",
+    )
     INIT_404_NOT_FOUND = (
         status.HTTP_404_NOT_FOUND,
         "NOT_FOUND",

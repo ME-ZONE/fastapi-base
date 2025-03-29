@@ -4,3 +4,4 @@ from .exception_middleware import (
     rate_limit_exception_handler,
     validation_exception_handler,
 )
+from .url_validation_middleware import URLValidationMiddleware
